@@ -7,7 +7,14 @@
       @question-answered="questionAnswered"
     />
     <results v-else :results="results" :totalCorrect="totalCorrect" />
-    <button type="button" class="reset-btn">Reset</button>
+    <button
+      type="button"
+      class="reset-btn"
+      @click.prevent="reset"
+      v-if="this.questionsAnswered === questionsData.length"
+    >
+      Reset
+    </button>
   </div>
 </template>
 
@@ -22,8 +29,12 @@ export default {
     Results,
   },
   methods: {
+    reset() {
+      this.totalCorrect = 0;
+      this.questionsAnswered = 0;
+    },
     questionAnswered(answer) {
-      this.totalCorrect = answer ? this.totalCorrect++ : this.totalCorrect;
+      if (answer) this.totalCorrect++;
 
       // Increment questionsAnswered data
       this.questionsAnswered++;
