@@ -3,8 +3,10 @@
     <questions
       v-if="questionsAnswered < questionsData.length"
       :questionsData="questionsData"
+      :questionsAnswered="questionsAnswered"
+      @question-answered="questionAnswered"
     />
-    <results v-else />
+    <results v-else :results="results" :totalCorrect="totalCorrect" />
     <button type="button" class="reset-btn">Reset</button>
   </div>
 </template>
@@ -19,8 +21,17 @@ export default {
     Questions,
     Results,
   },
+  methods: {
+    questionAnswered(answer) {
+      this.totalCorrect = answer ? this.totalCorrect++ : this.totalCorrect;
+
+      // Increment questionsAnswered data
+      this.questionsAnswered++;
+    },
+  },
   data() {
     return {
+      totalCorrect: 0,
       questionsAnswered: 0,
       questionsData: [
         {
