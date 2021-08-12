@@ -12,24 +12,26 @@
         answered
       </div>
     </div>
-    <div
-      class="single-question"
-      v-for="(questions, index) in questionsData"
-      :key="questions.q"
-      v-show="questionsAnswered === index"
-    >
-      <div class="question">{{ questions.q }}</div>
-      <div class="answers">
-        <div
-          class="answer"
-          v-for="answer in questions.answers"
-          v-bind:key="answer.text"
-          @click.prevent="selectAnswer(answer.is_correct)"
-        >
-          {{ answer.text }}
+    <transition-group name="fade">
+      <div
+        class="single-question"
+        v-for="(questions, index) in questionsData"
+        :key="questions.q"
+        v-show="questionsAnswered === index"
+      >
+        <div class="question">{{ questions.q }}</div>
+        <div class="answers">
+          <div
+            class="answer"
+            v-for="answer in questions.answers"
+            v-bind:key="answer.text"
+            @click.prevent="selectAnswer(answer.is_correct)"
+          >
+            {{ answer.text }}
+          </div>
         </div>
       </div>
-    </div>
+    </transition-group>
   </div>
 </template>
 
